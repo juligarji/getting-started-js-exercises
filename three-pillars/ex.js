@@ -1,27 +1,44 @@
+
+console.info( ".... Init Three Pilars Exercise ...." )
+
 class Bookshelf {
 	constructor() {
 		this.favoriteBooks = [];
 	}
 
 	// TODO: define methods `addFavoriteBook(..)`
-	// and `printFavoriteBooks()`
-}
-
-function addFavoriteBook(bookName) {
-	if (!bookName.includes("Great")) {
-		favoriteBooks.push(bookName);
+	// and `printFavoriteBooks()
+	
+	
+	printFavoriteBooks() {
+		console.log(`Favorite Books: ${ String( this.favoriteBooks.length )}`);
+		for (let bookName of this.favoriteBooks) {
+			console.log(bookName);
+		}
+	}
+	
+	addFavoriteBook(bookName) {
+		if (!bookName.includes("Great")) {
+			this.favoriteBooks.push(bookName);
+		}
 	}
 }
 
-function printFavoriteBooks() {
-	console.log(`Favorite Books: ${favoriteBooks.length}`);
-	for (let bookName of favoriteBooks) {
-		console.log(bookName);
-	}
-}
 
-function loadBooks( /* .. */ ) {
+
+function loadBooks( bookshelf ) {
 	// TODO: call fakeAjax( .. );
+
+	fakeAjax( BOOK_API, function loadingCallback(arrayOfBooks) {
+
+		for(let book of arrayOfBooks) {
+			bookshelf.addFavoriteBook( book )
+		}
+		
+		bookshelf.printFavoriteBooks()
+		
+		console.info( ".... End Three Pilars Exercise ...." )
+	})
 }
 
 var BOOK_API = "https://some.url/api";
@@ -41,3 +58,6 @@ function fakeAjax(url,cb) {
 		]);
 	},500);
 }
+
+loadBooks( new Bookshelf() )
+
